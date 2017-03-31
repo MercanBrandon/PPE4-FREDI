@@ -5,29 +5,28 @@ $mdp = $_POST['password'];
 
 
 //Verification de la connexion
-$_SESSION['email']=$mail; 
+$_SESSION['email']=$mail;
 if (!isset($_SESSION['email'])) {
 	if (empty($_SESSION['email'])) {
 		header('Location: http://127.0.0.1:8080/edsa-FREDI/authentification.php'); // A modifier
 	}
 }
 
-//verification des identifiants 
+//verification des identifiants
 $dsn = 'mysql:dbname=bdfredi;host=127.0.0.1';
 $user = 'root';
 $password = '';
-$pdo = new PDO($dsn,$user,$password);
-var_dump($pdo);
-echo $mail;
-echo $mdp;
-
-$query ="SELECT `adresse-mail` FROM `demandeurs` WHERE `adresse-mail`= '$mail' and `password`= '$mdp'";
-$count = $pdo->query($query);
-var_dump($count);
+$connexion = new PDO($dsn,$user,$password);
+// var_dump($connexion);
+//echo $mail;
+//echo $mdp;
+$query = $connexion->prepare("SELECT `adresse-mail` FROM `demandeurs` WHERE `adresse-mail`= '$mail' and `password`= '$mdp'");
+$query->execute();
+$count = $query->fetchColumn();
+//var_dump($count);
 if ($count == false ){
 	header('Location: http://127.0.0.1:8080/edsa-FREDI/authentification.php'); // A modifier
 }
-
 
 ?>
 
@@ -41,8 +40,13 @@ if ($count == false ){
     <body>
         <p>Bienvenue sur la plateforme FREDI.</p>
         <input type="submit" name="nouveau" value="Nouveau bordereau" onclick="newBord()" />
+				<form name="bordereau" action="newBord" method="post">
+					<input type="text"
+				</form>
         <div id="Content"><p>lorem ipsum </p></div>
-        
+
+
+
         <div><input type="submit" name="btDeconnexion" value="Deconnexion" ></div>
     </body>
 </html>

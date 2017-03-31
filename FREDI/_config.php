@@ -3,13 +3,13 @@
 	$user='root';
 	$pass='';
 	$bd='bdfredi';
-	
-	
+
+
 	$dsn = 'mysql:dbname=".$bd."host=127.0.0.1';
 	$user = 'root';
 	$password = '';
-	
-	$pdo = new PDO($dsn,$user,$password);
+
+	$connexion = new PDO($dsn,$user,$password);
 
 
 	/*// connexion et choix de la base
