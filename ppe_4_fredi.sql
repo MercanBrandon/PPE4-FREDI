@@ -46,6 +46,7 @@ CREATE TABLE `demandeurs` (
   `rue` varchar(150) NOT NULL,
   `cp` char(5) NOT NULL,
   `ville` varchar(150) NOT NULL,
+  `password` varchar(150) NOT NULL,
   `num-recu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
