@@ -39,22 +39,13 @@ if ($count == false ){
     <head>
         <meta charset="utf-8" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <title>FREDI : Frais de déplacement et remise d'impot</title>
-				<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1"/>
-				<link rel="stylesheet" media="screen, projection" href="stylesheets/main.css" />
+        <title>FREDI : Frais de dÃ©placement et remise d'impot</title>
     </head>
     <body>
-
-			<div class="body-content" id="Content" >
-				<img src="images\logo_ligue.png" alt="M2L">
-				<article class="main">
-
-
-        <h3>Bienvenue sur la plateforme FREDI.</h3>
+			<div id="Content">
+        <p>Bienvenue sur la plateforme FREDI.</p>
         <input type="submit" name="nouveau" value="Nouveau bordereau" onclick="toggledisplay('form')" />
-
-
-				<form name="bordereau"  method="POST" action="editionBordereaux.php" style="display:none;" id="form" class="form-co">
+				<form name="bordereau"  method="POST" action="editionBordereaux.php" style="display:none;" id="form">
 					<p><label for="date">Date : <label><br/><input type="date" value="<?php echo getDate(); ?>" name="date"/></p>
 					<p><label for="motif">Motif : <label><br/><input list="motifs" value="" name="motif"/>
 						<datalist id="motifs">
@@ -72,7 +63,6 @@ if ($count == false ){
 					<p><label for="hebergement">Hébergement : <label><br/><input type="number" value="" name="hebergement"/></p>
 					<p><input type="submit" value="Enregistrer">
 				</form>
-				</article>
       </div>
 
 

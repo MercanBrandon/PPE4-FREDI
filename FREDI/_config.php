@@ -1,15 +1,28 @@
 <?php
-	$serveur='localhost';
-	$user='root';
-	$pass='';
-	$bd='bdfredi';
+/**
+ *
+ */
+class Connexion
+{
+	private $dsn;
+	private $user;
+	private $password;
+	public $connexion;
+
+	function __construct(Database $db, Host $host,User $user,password $password)
+	{
+		$this->dsn = 'mysql:dbname=".$bd."host=$host';
+		$this->user = $user;
+		$this->password = $password;
+
+		$connexion = new PDO($this->dsn, $this->user, $this->password);
+		$this->connexion = $connexion;
+		return $connexion ;
+	}
 
 
-	$dsn = 'mysql:dbname=".$bd."host=127.0.0.1';
-	$user = 'root';
-	$password = '';
+}
 
-	$connexion = new PDO($dsn,$user,$password);
 
 
 	/*// connexion et choix de la base
