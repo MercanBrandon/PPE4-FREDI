@@ -1,0 +1,45 @@
+div.body-content{
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+article.main{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  margin-bottom: 25px;
+  background-color: #FFC107;
+  box-shadow: 10px 10px 5px grey;
+  /*color : white;*/
+
+
+}
+
+form.form-co{
+
+  padding-top: 15px;
+}
+
+input{
+  background-color: #FF3D00 ;
+  color: white;
+}
+
+table, th, td {
+   border: 3px solid white;
+
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
