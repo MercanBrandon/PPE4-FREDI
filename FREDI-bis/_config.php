@@ -6,7 +6,7 @@
 
 
 /***************Localhost********************/
-$dsn = 'mysql:bdname=dbfredi;host=127.0.0.1';
+$dsn = 'mysql:dbname=dbfredi;host=127.0.0.1';
 $user = 'root';
 $password = '';
 

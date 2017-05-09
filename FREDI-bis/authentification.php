@@ -20,7 +20,7 @@
             <form method="POST" action="index.php" class="form-co">
               <p><input type="email" name="email" value="" placeholder="Entrez votre adresse e-mail" width="150px"></p>
               <p><input type="password" name="password" value="" placeholder="Entrez votre mot-de-passe" width="150px"></p>
-              <p><input type="submit" name="" value="Envoyer"></p>
+              <p><input type="submit" name="" value="Connexion"><a href="inscription.php"><input type="button" name="" value="Creer Compte" onclick=""></a></p>
               <p><a href="recupmail.php">Mot de passe oublié?</a></p>
             </form>
           </article>

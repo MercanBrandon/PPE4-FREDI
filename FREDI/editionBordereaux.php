@@ -1,5 +1,5 @@
 <?php session_start();
-
+require '_config.php';
 require 'class/demandeur.php';
 require 'class/bordereau.php';
 
