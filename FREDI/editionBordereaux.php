@@ -1,18 +1,30 @@
 <?php session_start();
-require '_config.php';
-require 'class/demandeur.php';
-require 'class/bordereau.php';
+//require_once 'class/demandeur.php';
+require_once 'class/bordereau.php';
+require_once 'class/personne.php';
+//$leDemandeur = new Demandeur($_SESSION['email']);
+//$unBordereau = new Bordereau($leDemandeur);
+//$leDemandeur = $_SESSION['demandeur'];
 
-//var_dump($_POST);
-//foreach ($_POST as $value) {
-//    echo "Valeur : $value<br />\n";
-//}
-$email = $_SESSION['email'];
-$post = $_POST;
-$bord = new Bordereau($post);
-$demandeur = new Demandeur($email);
-var_dump($demandeur);
-var_dump($_SESSION['email']);
+$leDemandeur = new Demandeur($_SESSION['email']);
+$unBordereau = new Bordereau($leDemandeur);
+$motif=$_POST['motif'];
+$date_ligne = $_POST['date'];
+$cp_ville_depart=$_POST['ville_depart'];
+$cp_ville_arrive=$_POST['ville_arrive'];
+$km_ligne=$_POST['km_ligne'];
+$cout_trajet=$_POST['cout_trajet'];
+$peage=$_POST['peage'];
+$repas=$_POST['repas'];
+$hebergement=$_POST['hebergement'];
+
+$uneLigne = new LigneFrais($unBordereau,$date_ligne,$motif,$cp_ville_depart,$cp_ville_arrive, $km_ligne,$cout_trajet,$peage,$repas,$hebergement);
+
+//var_dump($leDemandeur);echo "</br>";
+//var_dump($unBordereau);echo "</br>";
+//var_dump($uneLigne);echo "</br>";
+
+//$uneLigne = new LigneFrais($unBordereau,);
 ?>
 
 <!DOCTYPE html>
@@ -32,20 +44,21 @@ var_dump($_SESSION['email']);
 
       <h2>Note de frais des bénévoles </h2><br/><h3>Année civile <?php echo date('Y'); ?></h3><br/>
 
-      <p style="text-align:left;">Je soussigné(e) <?php echo $demandeur->nom." ".$demandeur->prenom.""; ?> <br/>
-      demeurant <?php echo $demandeur->rue." ".$demandeur->cp." ".$demandeur->ville.""; ?> <br/>
+      <p style="text-align:left;">Je soussigné(e) <?php echo $leDemandeur->nom_pers." ".$leDemandeur->prenom_pers.""; ?> <br/>
+      demeurant <?php echo $leDemandeur->adr_demand." ".$leDemandeur->ville_demand." "; ?> <br/>
       certifie renoncer au remboursement des frais ci-dessous et les laisser à l'association<br/>
       Salle d'Armes de Villers lès Nancy, 1 rue Rodin - 54600 Villers lès Nancy <br/>
       en tant que don.</p>
 
       <table class="bordereau">
         <caption><h3>Frais de Déplacement</h3><caption>
-          <tr><th>Date</th><th>Motif</th><th>Trajet</th><th>Kms Parcourus</th><th>Cout Trajet</th><th>Péages</th><th>Repas</th><th>Hebergement</th><th>Total</th></tr>
-          <tr><td><?php echo $bord->date; ?></td><td><?php echo $bord->motif; ?></td><td><?php echo $bord->trajet; ?></td><td><!--A definir--></td><td><?php echo $bord->cout; ?></td><td><?php echo $bord->peage; ?></td><td><?php echo $bord->repas; ?></td><td><?php echo $bord->hebergement; ?></td><td><?php echo "A voir"; ?></td></tr>
+          <tr><th>Date</th><th>Motif</th><th>Ville Depart</th><th>Ville Arrivée</th><th>Kms Parcourus</th><th>Péages</th><th>Repas</th><th>Hebergement</th><th>Total</th></tr>
+
+          <tr><td><?php echo $uneLigne->date_ligne; ?></td><td><?php echo $uneLigne->motif; ?></td><td><?php echo $uneLigne->ville_depart; ?></td><td><?php echo $uneLigne->ville_arrive; ?></td><td><?php echo $uneLigne->km_ligne; ?></td><td><?php echo $uneLigne->peage; ?></td><td><?php echo $uneLigne->repas; ?></td><td><?php echo $uneLigne->hebergement; ?></td><td><?php echo $uneLigne->total_ligne; ?></td></tr>
       </table>
         <form method="POST" action="index.php">
 
-          <input type="button" name="SaveBordereau" value="Envoyer" onclick="SaveBordereau()">
+          <input type="button" name="newLigne" value="Nouvelle ligne" onclick="newLigne()">
         </form>
 
         </article>

@@ -1,6 +1,6 @@
 <?php session_start();
-//require 'class/demandeur.php';
-require '_config.php';
+require_once 'class/demandeur.php';
+require_once '_config.php';
 $mail = $_POST['email'];
 $mdp = $_POST['password'];
 
@@ -11,7 +11,7 @@ $_SESSION['email']=$mail;
 if (!isset($_SESSION['email'])) {
 	if (empty($_SESSION['email'])) {
 		//header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
-		header('Location: http://127.0.0.1:8080/edsa-FREDI/authentification.php'); // local
+		header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // local
 	}
 }
 
@@ -20,14 +20,18 @@ if (!isset($_SESSION['email'])) {
 // var_dump($connexion);
 //echo $mail;
 //echo $mdp;
-$query = $connexion->prepare("SELECT `adresse-mail` FROM `demandeurs` WHERE `adresse-mail`= '$mail' and `password`= '$mdp'");
+$query = $connexion->prepare("SELECT `email_demand` FROM `demandeur` WHERE `email_demand`= '$mail' and `password_demand`= '$mdp'");
 $query->execute();
 $count = $query->fetchColumn();
 //var_dump($count);
 if ($count == false ){
 	//header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
-	header('Location: http://127.0.0.1:8080/edsa-FREDI/authentification.php'); // Local
+	header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // Local
+}else {
+	$leDemandeur = new Demandeur($_SESSION['email']);
+	$_SESSION['demandeur'] = $leDemandeur;
 }
+
 
 ?>
 
@@ -46,13 +50,14 @@ if ($count == false ){
 				<img src="images\logo_ligue.png" alt="M2L">
 				<article class="main">
 
+				<?php echo "<h3>Bienvenue sur la plateforme FREDI Mr./Mme. ".$leDemandeur->nom_pers." ".$leDemandeur->prenom_pers."</h3>"; ?>
 
-        <h3>Bienvenue sur la plateforme FREDI.</h3>
         <input type="submit" name="nouveau" value="Nouveau bordereau" onclick="toggledisplay('form')" />
+				<a href="monCompte.php"><input type="submit" name="btnCompte" value="Mon Compte" onclick=""/></a>
 
 
 				<form name="bordereau"  method="POST" action="editionBordereaux.php" style="display:none;" id="form" class="form-co">
-					<p><label for="date">Date : <label><br/><input type="date" value="<?php echo getDate(); ?>" name="date"/></p>
+					<p><label for="date">Date : <label><br/><input type="date" value="" name="date"/></p>
 					<p><label for="motif">Motif : <label><br/><input list="motifs" value="" name="motif"/>
 						<datalist id="motifs">
 							<option value="Réunion">
@@ -61,9 +66,10 @@ if ($count == false ){
 							<option value="Compétition international">
 							<option value="Stage">
 						</datalist></p>
-					<p><label for="trajet">Trajet : <label><br/><input type="text" value="" name="trajet"/></p>
-					<p><label for="kms">Kms Parcourus : <label><br/><input type="text" value="" name="kms"/></p>
-					<p><label for="cout">Coût Trajet : <label><br/><input type="number" value="" name="cout"/></p>
+					<p><label for="ville_depart">ville départ : <label><br/><input type="text" value="" name="ville_depart"/></p>
+					<p><label for="ville_arrive">ville arrivée : <label><br/><input type="text" value="" name="ville_arrive"/></p>
+					<p><label for="km_ligne">Kms Parcourus : <label><br/><input type="text" value="" name="km_ligne"/></p>
+					<p><label for="cout_trajet">Coût Trajet : <label><br/><input type="number" value="" name="cout_trajet"/></p>
 					<p><label for="peage">Péages : <label><br/><input type="number" value="" name="peage"/></p>
 					<p><label for="repas">Repas : <label><br/><input type="number" value="" name="repas"/></p>
 					<p><label for="hebergement">Hébergement : <label><br/><input type="number" value="" name="hebergement"/></p>
@@ -74,7 +80,7 @@ if ($count == false ){
 
 
 
-        <div><input type="submit" name="btDeconnexion" value="Deconnexion" ></div>
+        <div><a href="endsession.php"><input type="submit" name="btDeconnexion" value="Deconnexion" ></a></div>
     </body>
 </html>
 <script type="text/javascript">

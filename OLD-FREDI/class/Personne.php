@@ -4,10 +4,10 @@
  */
 class Personne
 {
-  protected $id_pers;
-  protected $nom_pers;
-  protected $prenom_pers;
-  protected $dateNaiss_pers;
+  $id_pers;
+  $nom_pers;
+  $prenom_pers;
+  $dateNaiss_pers;
 
   function __construct($nom_pers,$prenom_pers,$dateNaiss_pers)
   {

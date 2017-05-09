@@ -1,48 +1,37 @@
 <?php
-require '_config.php';
+require 'personne.php';
 
-/**
- *
- */
-class Demandeur
+class Demandeur extends Personne
 {
-  //public $email;
-  public $nom;
-  public $prenom;
-  public $rue;
-  public $cp;
-  public $ville;
+  public $id_pers;
+  public $id_demand;
+  public $nom_pers;
+  public $prenom_pers;
+  public $dateNaiss_pers;
+  public $email_demand;
+  public $adr_demand;
+  public $ville_demand;
 
-  function __construct($email)
-  {
+  function __construct($email_demand){
     include '_config.php';
-    $sql = $connexion->prepare ("SELECT `nom`, `prenom`, `rue`, `cp`, `ville` FROM `demandeurs` WHERE `adresse-mail`= '$email'");
+    $sql = $connexion->prepare("SELECT demandeur.id_pers, id_demand, nom_pers, prenom_pers, dateNaiss_pers, email_demand, adr_demand, ville_demand FROM demandeur, personne WHERE email_demand = '$email_demand' AND personne.id_pers = demandeur.id_pers");
     $sql->execute();
-    $result = $sql->fetch();
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-    $this->nom = $result["nom"];
-    $this->prenom = $result["prenom"];
-    $this->rue = $result["rue"];
-    $this->cp = $result["cp"];
-    $this->ville = $result["ville"];
-    var_dump($result);
+    $this->id_pers = $result['id_pers'];
+    $this->id_demand = $result['id_demand'];
+    $this->nom_pers = $result['nom_pers'];
+    $this->prenom_pers = $result['prenom_pers'];
+    $this->dateNaiss_pers = $result['dateNaiss_pers'];
+    $this->email_demand = $result['email_demand'];
+    $this->adr_demand = $result['adr_demand'];
+    $this->ville_demand = $result['ville_demand'];
+
   }
 
-  function recupMDP($mail){
-    $dsn = 'mysql:dbname=bdfredi;host=127.0.0.1';
-    $user = 'root';
-    $password = '';
-    $connexion = new PDO($dsn,$user,$password);
-    $sql = $connexion->prepare("SELECT `password` FROM `demandeurs` WHERE `adresse-mail`='$mail'");
-    $sql->execute();
-    $result = $sql->fetch();
-
-    $subject = 'Identifiants FREDI';
-    $message = 'Mr,Mme'.$this->nom.' '.$this->prenom.'votre mot de passe est le suivant :'.$result['password'].'.';
-    mail($mail,$subject,$message);
-
+  public function add_demand($nom_pers,$prenom_pers,$dateNaiss_pers,$email_demand,$password_demand,$adr_demand,$cp_demand,$ville_demand){
+    
   }
+
 }
-
-
  ?>
