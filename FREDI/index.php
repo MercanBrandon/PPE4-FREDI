@@ -10,8 +10,8 @@ $mdp = $_POST['password'];
 $_SESSION['email']=$mail;
 if (!isset($_SESSION['email'])) {
 	if (empty($_SESSION['email'])) {
-		//header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
-		header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // local
+		header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
+		//header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // local
 	}
 }
 
@@ -25,8 +25,8 @@ $query->execute();
 $count = $query->fetchColumn();
 //var_dump($count);
 if ($count == false ){
-	//header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
-	header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // Local
+	header('Location: http://mercan-brandon.fr/fredi/authentification.php'); // A modifier
+	//header('Location: http://127.0.0.1:8080/edsa-FREDI-bis/authentification.php'); // Local
 }else {
 	$leDemandeur = new Demandeur($_SESSION['email']);
 	$_SESSION['demandeur'] = $leDemandeur;
